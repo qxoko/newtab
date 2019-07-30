@@ -3,9 +3,9 @@
 
 so I made one of these before and it was pretty cool, but I realised pretty quickly that it had some serious privacy implications due to the fact that it:
 
-A) needed to be hosted to work properly (unique url)
-B) queried google for its fonts (constant identical query)
-C) queried github gists for config data (unique url again.  this only happened when prompted, but nevertheless).
++ needed to be hosted to work properly (unique url)
++ queried google for its fonts (constant identical query)
++ queried github gists for config data (unique url again.  this only happened when prompted, but nevertheless).
 
 these things repeated over and over every time you open a new tab make you pretty identifiable.  so, in the interests of *not* doing that, because we've learned from our past stupidity, this new new tab is entirely serverless and local to the machine it's being run on.
 
