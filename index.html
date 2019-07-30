@@ -11,24 +11,46 @@
 		:root {
 			--bcolor: #1F2021;
 			--fcolor: #DDD;
+			--halftn: #666;
+			--R: #EC095A;
+			--Y: #FFC914;
+			--B: #17BEBB;
 		}
 
 		body {
 			font-family: roboto, monospace;
 			background-color: var(--bcolor);
 			color:            var(--fcolor);
-			margin: 50px;
 			font-size: 16px;
 		}
 
-		.title_text {
+		#title_text {
+			position: absolute;
+			top: 50px;
+			left: 50px;
 			color: var(--fcolor);
+		}
+
+		#time {
+			position: absolute;
+			top: 50px;
+			right: 50px;
+			color: var(--R);
+		}
+
+		#message {
+			position: absolute;
+			left: 150px;
+			top: 50px;
+			color: var(--halftn);
 		}
 
 		#input {
 			font-family: roboto, monospace;
 			color:       var(--fcolor);
-			padding-top: 50px;
+			position: absolute;
+			top: 100px;
+			left: 50px;
 			font-size:   16px;
 			width:       100%;
 			background:  none;
@@ -39,35 +61,40 @@
 
 		::-moz-selection {
 			color:      var(--bcolor);
-			background: #EC095A;
+			background: var(--fcolor);
 		}
 
 		::selection {
 			color:      var(--bcolor);
-			background: #EC095A;
+			background: var(--fcolor);
 		}
 	</style>
 </head>
 <body>
-	<div class="title_text">search</div>
+	<div id="title_text">search</div>
+	<div id="time"></div>
 	<input id="input" type="text" autofocus autocomplete="off" spellcheck="false" autocapitalize="none" autocorrect="off">
+	<div id="message"></div>
 	<script type="text/javascript">
 		// default command if no command is specified
 		let default_command = 'g';
 		let last_command	= null;
 
-		window.onload = () => {
-			focus_input();
-			document.querySelector('body').addEventListener('click', focus_input);
-			document.onkeydown = handle_keypress;
+		function get_weird_date() {
+			var now    = new Date();
+			var start  = new Date(now.getFullYear(), 0, 0);
+			var diff   = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
+			var oneDay = 1000 * 60 * 60 * 24;
+			var day    = Math.floor(diff / oneDay);
+			return ("000" + now.getDate()).slice(-3) + '|' + day;
 		}
 
 		function focus_input() {
 			document.querySelector('#input').focus();
 		}
 
-		function handle_keypress(e) {
-			let keycode = e.which || e.keyCode;
+		function handle_keypress(k) {
+			let keycode = k.which || k.keyCode;
 
 			if (keycode === 13) { // return key
 				evaluate_input();
@@ -78,6 +105,22 @@
 				document.querySelector('#input').value = last_command;
 				return;
 			}
+
+			let buffer  = document.querySelector('#input').value;
+			let command = buffer.match(/\S+(?=:)/);
+
+			if (command_name.hasOwnProperty(buffer.match(command))) {
+				document.querySelector('#message').innerText = command_name[command];
+			} else {
+				document.querySelector('#message').innerText = '';
+			}
+		}
+
+		window.onload = () => {
+			focus_input();
+			document.querySelector('body').addEventListener('click', focus_input);
+			document.querySelector('#time').innerHTML = get_weird_date();
+			document.onkeyup = handle_keypress;
 		}
 
 		function build_url(url, search='', query='') {
@@ -123,24 +166,31 @@
 
 			let arg = buffer.split(/:/);
 
-			let command_names = Object.keys(command_list);
-			let command       = arg[0].toLowerCase().trim();
-			let valid_command = false;
+			let command = arg[0].toLowerCase().trim();
 
-			for (let i=0; i < command_names.length; i++) {
-				if (command === command_names[i]) {
-					valid_command = true;
-					arg.shift();
-				}
-			}
-
-			if (valid_command) {
+			if (command_list.hasOwnProperty(command)) {
+				arg.shift();
 				command_list[command](arg);
 			} else {
 				command_list[default_command](arg);
 			}
 
 			input_box.value = '';
+		}
+
+		const command_name = {
+			'g':    'google',
+			'img':  'google images',
+			'y':    'youtube',
+			'n':    'netflix',
+			'r':    'reddit',
+			't':    'tumblr',
+			'w':    'wikipedia',
+			'a':    'amazon',
+			'git':  'github',
+			'd':    'discord',
+			'dict': 'dictionary',
+			'thes': 'thesaurus',
 		}
 
 		const command_list = {
