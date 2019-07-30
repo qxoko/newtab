@@ -107,7 +107,7 @@
 			}
 
 			let buffer  = document.querySelector('#input').value;
-			let command = buffer.match(/\S+(?=:)/);
+			let command = buffer.match(/\S*/);
 
 			if (command_name.hasOwnProperty(buffer.match(command))) {
 				document.querySelector('#message').innerText = command_name[command];
@@ -164,7 +164,7 @@
 				return;
 			}
 
-			let arg = buffer.split(/:/);
+			let arg = buffer.split(/ /);
 
 			let command = arg[0].toLowerCase().trim();
 
@@ -172,7 +172,7 @@
 				arg.shift();
 				command_list[command](arg);
 			} else {
-				command_list[default_command](arg);
+				command_list[default_command](buffer);
 			}
 
 			input_box.value = '';
