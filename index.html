@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>New Tab</title>
+	<style type="text/css">
+		@font-face {
+			src: url('font/roboto_mono_regular.ttf');
+			font-family: roboto;
+		}
+
+		:root {
+			--bcolor: #1F2021;
+			--fcolor: #DDD;
+		}
+
+		body {
+			font-family: roboto, monospace;
+			background-color: var(--bcolor);
+			color:            var(--fcolor);
+			margin: 50px;
+			font-size: 16px;
+		}
+
+		.title_text {
+			color: var(--fcolor);
+		}
+
+		#input {
+			font-family: roboto, monospace;
+			color:       var(--fcolor);
+			padding-top: 50px;
+			font-size:   16px;
+			width:       100%;
+			background:  none;
+			border:      none;
+			outline:     none;
+			margin:      none;
+		}
+
+		::-moz-selection {
+			color:      var(--bcolor);
+			background: #EC095A;
+		}
+
+		::selection {
+			color:      var(--bcolor);
+			background: #EC095A;
+		}
+	</style>
+</head>
+<body>
+	<div class="title_text">search</div>
+	<input id="input" type="text" autofocus autocomplete="off" spellcheck="false" autocapitalize="none" autocorrect="off">
+	<script type="text/javascript">
+		// default command if no command is specified
+		let default_command = 'g';
+		let last_command	= null;
+
+		window.onload = () => {
+			focus_input();
+			document.querySelector('body').addEventListener('click', focus_input);
+			document.onkeydown = handle_keypress;
+		}
+
+		function focus_input() {
+			document.querySelector('#input').focus();
+		}
+
+		function handle_keypress(e) {
+			let keycode = e.which || e.keyCode;
+
+			if (keycode === 13) { // return key
+				evaluate_input();
+				return;
+			}
+
+			if (keycode === 38) { // up key
+				document.querySelector('#input').value = last_command;
+				return;
+			}
+		}
+
+		function build_url(url, search='', query='') {
+			let dest = (/(http(s)?:\/\/.)/.test(url)) ? url : 'http://' + url;
+			return dest + search + encodeURIComponent(query);
+		}
+
+		function go_to_site(url, search, arg=[]) {
+			if (arg.length === 0) {
+				redirect(url);
+			} else {
+				redirect(build_url(url, search, arg));
+			}
+		}
+
+		function redirect(url) {
+			window.location.href = url;
+			return false;
+		}
+
+		function is_url(url) {
+			if (/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(url)) {
+				if (!url.includes(' ')) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		function evaluate_input() {
+			let input_box = document.querySelector('#input');
+			let buffer    = input_box.value.trim();
+
+			if (buffer === '') { return; }
+
+			last_command = buffer;
+
+			if (is_url(buffer)) {
+				redirect(buffer);
+				input_box.value = '';
+				return;
+			}
+
+			let arg = buffer.split(/:/);
+
+			let command_names = Object.keys(command_list);
+			let command       = arg[0].toLowerCase().trim();
+			let valid_command = false;
+
+			for (let i=0; i < command_names.length; i++) {
+				if (command === command_names[i]) {
+					valid_command = true;
+					arg.shift();
+				}
+			}
+
+			if (valid_command) {
+				command_list[command](arg);
+			} else {
+				command_list[default_command](arg);
+			}
+
+			input_box.value = '';
+		}
+
+		const command_list = {
+			// google proper
+			'g': (arg) => {
+				go_to_site('https://google.com', '/search?q=', arg);
+			},
+			// google images
+			'img': (arg) => {
+				go_to_site('https://google.com', '/search?tbm=isch&q=', arg);
+			},
+			// youtube
+			'y': (arg) => {
+				go_to_site('https://youtube.com', '/results?search_query=', arg);
+			},
+			// netflix
+			'n': (arg) => {
+				go_to_site('https://netflix.com', '/search?q=', arg);
+			},
+			// reddit + subreddit as arg1
+			'r': (arg) => {
+				const url = 'https://reddit.com', search = '/r/';
+				let query = (arg.length > 0) ? arg[0] : '';
+
+				if (arg.length === 0) {
+					redirect(url);
+				} else {
+					redirect(build_url(url, search, arg[0]))
+				}
+			},
+			// tumblr + blog url as arg1
+			't': (arg) => {
+				if (arg.length === 0) {
+					redirect('https://tumblr.com/dashboard');
+				} else {
+					redirect('https://' + arg.shift() + '.tumblr.com/' + arg.join('/'));
+				}
+			},
+			// wikipedia
+			'w': (arg) => {
+				go_to_site('https://wikipedia.org', '/w/index.php?tile=Special:Search&search=', arg);
+			},
+			// github
+			'git': (arg) => {
+				redirect('https://github.com/search?q=' + arg + '&unscoped_q=' + arg);
+			},
+			// discord web
+			'd': (arg) => {
+				go_to_site('https://discordapp.com/app');
+			},
+			// dictionary.com
+			'dict': (arg) => {
+				go_to_site('https://dictionary.com', '/browse/', arg);
+			},
+			// thesaurus.com
+			'thes': (arg) => {
+				go_to_site('https://thesaurus.com', '/browse/', arg);
+			},
+			// amazon
+			'a': (arg) => {
+				go_to_site('https://amazon.co.uk', '/s/?field-keywords=', arg);
+			},
+		}
+	</script>
+</body>
+</html>
