@@ -204,7 +204,11 @@
 			},
 			// youtube
 			'y': (arg) => {
-				go_to_site('https://youtube.com', '/results?search_query=', arg);
+				if (arg === 's') {
+					go_to_site('https://youtube.com', '/results?search_query=', arg);
+				} else {
+					redirect('https://www.youtube.com/feed/subscriptions');
+				}
 			},
 			// netflix
 			'n': (arg) => {
@@ -212,21 +216,14 @@
 			},
 			// reddit + subreddit as arg1
 			'r': (arg) => {
-				const url = 'https://reddit.com', search = '/r/';
-				let query = (arg.length > 0) ? arg[0] : '';
-
-				if (arg.length === 0) {
-					redirect(url);
-				} else {
-					redirect(build_url(url, search, arg[0]))
-				}
+				go_to_site('https://reddit.com', '/r/', arg);
 			},
 			// tumblr + blog url as arg1
 			't': (arg) => {
 				if (arg.length === 0) {
 					redirect('https://tumblr.com/dashboard');
 				} else {
-					redirect('https://' + arg.shift() + '.tumblr.com/' + arg.join('/'));
+					redirect('https://' + arg + '.tumblr.com/');
 				}
 			},
 			// wikipedia
