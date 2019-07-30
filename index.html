@@ -170,7 +170,7 @@
 
 			if (command_list.hasOwnProperty(command)) {
 				arg.shift();
-				command_list[command](arg);
+				command_list[command](arg.join(' '));
 			} else {
 				command_list[default_command](buffer);
 			}
