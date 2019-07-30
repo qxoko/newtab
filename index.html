@@ -232,7 +232,7 @@
 			},
 			// github
 			'git': (arg) => {
-				redirect('https://github.com/search?q=' + arg + '&unscoped_q=' + arg);
+				go_to_site('https://github.com', '/search?q=', arg);
 			},
 			// discord web
 			'd': (arg) => {
