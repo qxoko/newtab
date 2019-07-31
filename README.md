@@ -22,6 +22,7 @@ for instance, `a product name` will search `amazon` for `product name`.  simply 
 ## commands
 
 ```
+x <url>        — force immediate redirect for weird urls
 g <query>      — google
 img <query>    — google images
 a <query>      — amazon.co.uk
