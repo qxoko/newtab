@@ -4,7 +4,7 @@
 	<title>New Tab</title>
 	<style type="text/css">
 		@font-face {
-			src: url('font/roboto_mono_regular.ttf');
+			src: url('~/roboto_mono_regular.ttf');
 			font-family: roboto;
 		}
 
@@ -72,7 +72,7 @@
 </head>
 <body>
 	<div id="title_text">search</div>
-	<div id="time"></div>
+	<div id="time">000|000</div>
 	<input id="input" type="text" autofocus autocomplete="off" spellcheck="false" autocapitalize="none" autocorrect="off">
 	<div id="message"></div>
 	<script type="text/javascript">
@@ -90,7 +90,7 @@
 		}
 
 		function focus_input() {
-			document.querySelector('#input').focus();
+			document.querySelector('#input').select();
 		}
 
 		function handle_keypress(k) {
@@ -117,10 +117,13 @@
 		}
 
 		window.onload = () => {
-			focus_input();
-			document.querySelector('body').addEventListener('click', focus_input);
+			// assign time
 			document.querySelector('#time').innerHTML = get_weird_date();
 			document.onkeyup = handle_keypress;
+
+			// focus the text box
+			document.querySelector('html').addEventListener('click', focus_input);
+			focus_input();
 		}
 
 		function build_url(url, search='', query='') {
