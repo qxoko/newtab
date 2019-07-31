@@ -189,6 +189,7 @@
 			'n':    'netflix',
 			'r':    'reddit',
 			't':    'tumblr',
+			'tw':   'twitter',
 			'w':    'wikipedia',
 			'a':    'amazon',
 			'git':  'github',
@@ -233,6 +234,9 @@
 				} else {
 					redirect('https://' + arg + '.tumblr.com/');
 				}
+			},
+			'tw': (arg) => {
+				go_to_site('https://twitter.com', '/search?q=', arg);
 			},
 			// wikipedia
 			'w': (arg) => {
