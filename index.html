@@ -197,6 +197,10 @@
 		}
 
 		const command_list = {
+			// force redirect
+			'x': (arg) => {
+				redirect('https://' + arg)
+			},
 			// google proper
 			'g': (arg) => {
 				go_to_site('https://google.com', '/search?q=', arg);
@@ -208,9 +212,9 @@
 			// youtube
 			'y': (arg) => {
 				if (arg === 's') {
-					go_to_site('https://youtube.com', '/results?search_query=', arg);
-				} else {
 					redirect('https://www.youtube.com/feed/subscriptions');
+				} else {
+					go_to_site('https://youtube.com', '/results?search_query=', arg);
 				}
 			},
 			// netflix
