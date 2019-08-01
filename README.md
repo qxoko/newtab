@@ -31,6 +31,7 @@ y <query>      — youtube.com: query "s" will go to subscriptions
 n <query>      — netflix
 r <subreddit   — reddit
 t <blog name>  — tumblr
+tw <query>     — twitter
 w <query>      — wikipedia
 a <query>      — amazon
 git <query>    — github
