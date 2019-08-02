@@ -162,7 +162,7 @@
 			last_command = buffer;
 
 			if (is_url(buffer)) {
-				redirect(buffer);
+				redirect(build_url(buffer));
 				input_box.value = '';
 				return;
 			}
