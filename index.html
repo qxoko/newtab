@@ -109,7 +109,7 @@
 			let buffer  = document.querySelector('#input').value;
 			let command = buffer.match(/\S*/);
 
-			if (command_name.hasOwnProperty(buffer.match(command))) {
+			if (command_name.hasOwnProperty(command)) {
 				document.querySelector('#message').innerText = command_name[command];
 			} else {
 				document.querySelector('#message').innerText = '';
