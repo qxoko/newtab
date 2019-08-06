@@ -131,11 +131,11 @@
 			return dest + search + encodeURIComponent(query);
 		}
 
-		function go_to_site(url, search, arg=[]) {
-			if (arg.length === 0) {
-				redirect(url);
-			} else {
+		function go_to_site(url, search, arg='') {
+			if (arg) {
 				redirect(build_url(url, search, arg));
+			} else {
+				redirect(url);
 			}
 		}
 
@@ -167,16 +167,10 @@
 				return;
 			}
 
-			let arg = buffer.split(/ /);
-
-			let command = arg.shift().toLowerCase().trim();
+			let command = buffer.match(/\S*/);
 
 			if (command_list.hasOwnProperty(command)) {
-				// only send first arg where relevant
-				if (arg.length === 1) {
-					arg = arg[0]
-				}
-				command_list[command](arg);
+				command_list[command](buffer.replace(command,'').trim());
 			} else {
 				command_list[default_command](buffer);
 			}
@@ -228,16 +222,16 @@
 			'n': (query) => {
 				go_to_site('https://netflix.com', '/search?q=', query);
 			},
-			// reddit + subreddit as arg1
+			// reddit + subreddit as arg
 			'r': (sub) => {
 				go_to_site('https://reddit.com', '/r/', sub);
 			},
-			// tumblr + blog url as arg1
+			// tumblr + blog url as arg
 			't': (blog) => {
-				if (blog.length === 0) {
-					redirect('https://tumblr.com/dashboard');
-				} else {
+				if (blog) {
 					redirect('https://' + blog + '.tumblr.com/');
+				} else {
+					redirect('https://tumblr.com/dashboard');
 				}
 			},
 			'tw': (query) => {
@@ -267,14 +261,16 @@
 			'a': (query) => {
 				go_to_site('https://amazon.co.uk', '/s/?field-keywords=', query);
 			},
+			// protonmail
 			'm': () => {
 				redirect('https://mail.protonmail.com/inbox')
 			},
+			// slack
 			's': (workspace) => {
-				if (workspace.length === 0) {
-					redirect('https://slack.com/');
-				} else {
+				if (workspace) {
 					redirect('https://' + workspace + '.slack.com/');
+				} else {
+					redirect('https://slack.com/');
 				}
 			},
 		}
