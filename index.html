@@ -169,11 +169,14 @@
 
 			let arg = buffer.split(/ /);
 
-			let command = arg[0].toLowerCase().trim();
+			let command = arg.shift().toLowerCase().trim();
 
 			if (command_list.hasOwnProperty(command)) {
-				arg.shift();
-				command_list[command](arg.join(' '));
+				// only send first arg where relevant
+				if (arg.length === 1) {
+					arg = arg[0]
+				}
+				command_list[command](arg);
 			} else {
 				command_list[default_command](buffer);
 			}
@@ -202,76 +205,76 @@
 
 		const command_list = {
 			// force redirect
-			'x': (arg) => {
-				redirect('https://' + arg)
+			'x': (url) => {
+				redirect('https://' + url)
 			},
 			// google proper
-			'g': (arg) => {
-				go_to_site('https://google.com', '/search?q=', arg);
+			'g': (query) => {
+				go_to_site('https://google.com', '/search?q=', query);
 			},
 			// google images
-			'img': (arg) => {
-				go_to_site('https://google.com', '/search?tbm=isch&q=', arg);
+			'img': (query) => {
+				go_to_site('https://google.com', '/search?tbm=isch&q=', query);
 			},
 			// youtube
-			'y': (arg) => {
-				if (arg === 's') {
+			'y': (query) => {
+				if (query === 's') {
 					redirect('https://www.youtube.com/feed/subscriptions');
 				} else {
-					go_to_site('https://youtube.com', '/results?search_query=', arg);
+					go_to_site('https://youtube.com', '/results?search_query=', query);
 				}
 			},
 			// netflix
-			'n': (arg) => {
-				go_to_site('https://netflix.com', '/search?q=', arg);
+			'n': (query) => {
+				go_to_site('https://netflix.com', '/search?q=', query);
 			},
 			// reddit + subreddit as arg1
-			'r': (arg) => {
-				go_to_site('https://reddit.com', '/r/', arg);
+			'r': (sub) => {
+				go_to_site('https://reddit.com', '/r/', sub);
 			},
 			// tumblr + blog url as arg1
-			't': (arg) => {
-				if (arg.length === 0) {
+			't': (blog) => {
+				if (blog.length === 0) {
 					redirect('https://tumblr.com/dashboard');
 				} else {
-					redirect('https://' + arg + '.tumblr.com/');
+					redirect('https://' + blog + '.tumblr.com/');
 				}
 			},
-			'tw': (arg) => {
-				go_to_site('https://twitter.com', '/search?q=', arg);
+			'tw': (query) => {
+				go_to_site('https://twitter.com', '/search?q=', query);
 			},
 			// wikipedia
-			'w': (arg) => {
-				go_to_site('https://wikipedia.org', '/w/index.php?tile=Special:Search&search=', arg);
+			'w': (query) => {
+				go_to_site('https://wikipedia.org', '/w/index.php?tile=Special:Search&search=', query);
 			},
 			// github
-			'git': (arg) => {
-				go_to_site('https://github.com', '/search?q=', arg);
+			'git': (query) => {
+				go_to_site('https://github.com', '/search?q=', query);
 			},
 			// discord web
-			'd': (arg) => {
+			'd': () => {
 				go_to_site('https://discordapp.com/app');
 			},
 			// dictionary.com
-			'dict': (arg) => {
-				go_to_site('https://dictionary.com', '/browse/', arg);
+			'dict': (query) => {
+				go_to_site('https://dictionary.com', '/browse/', query);
 			},
 			// thesaurus.com
-			'thes': (arg) => {
-				go_to_site('https://thesaurus.com', '/browse/', arg);
+			'thes': (query) => {
+				go_to_site('https://thesaurus.com', '/browse/', query);
 			},
 			// amazon
-			'a': (arg) => {
-				go_to_site('https://amazon.co.uk', '/s/?field-keywords=', arg);
+			'a': (query) => {
+				go_to_site('https://amazon.co.uk', '/s/?field-keywords=', query);
 			},
-			'p': (arg) => {
+			'p': () => {
 				redirect('https://mail.protonmail.com/inbox')
 			},
-			's': (arg) => {
-				if (arg.length === 0) {
+			's': (workspace) => {
+				if (workspace.length === 0) {
 					redirect('https://slack.com/');
 				} else {
-					redirect('https://' + arg + '.slack.com/');
+					redirect('https://' + workspace + '.slack.com/');
 				}
 			},
 		}
