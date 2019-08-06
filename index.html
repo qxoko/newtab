@@ -196,6 +196,8 @@
 			'd':    'discord',
 			'dict': 'dictionary',
 			'thes': 'thesaurus',
+			'p':    'protonmail',
+			's':    'slack'
 		}
 
 		const command_list = {
@@ -261,6 +263,16 @@
 			// amazon
 			'a': (arg) => {
 				go_to_site('https://amazon.co.uk', '/s/?field-keywords=', arg);
+			},
+			'p': (arg) => {
+				redirect('https://mail.protonmail.com/inbox')
+			},
+			's': (arg) => {
+				if (arg.length === 0) {
+					redirect('https://slack.com/');
+				} else {
+					redirect('https://' + arg + '.slack.com/');
+				}
 			},
 		}
 	</script>

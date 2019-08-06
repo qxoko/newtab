@@ -22,19 +22,31 @@ for instance, `a product name` will search `amazon` for `product name`.  simply 
 ## commands
 
 ```
-x <url>        — force immediate redirect for weird urls
-g <query>      — google
+// main
+g   <query>    — google
 img <query>    — google images
-a <query>      — amazon.co.uk
+m              — mail.protonmail.com
+
+// chat
 d              — discord web
-y <query>      — youtube.com: query "s" will go to subscriptions
-n <query>      — netflix
-r <subreddit>  — reddit
-t <blog name>  — tumblr
+s <workspace>  — slack
+
+// social
 tw <query>     — twitter
-w <query>      — wikipedia
-a <query>      — amazon
-git <query>    — github
+r  <subreddit> — reddit
+t  <blog name> — tumblr
+
+// entertainment
+y  <query>     — youtube.com: query "s" will go to subscriptions
+n  <query>     — netflix
+
+// other
+a    <query>   — amazon.co.uk
+w    <query>   — wikipedia
+git  <query>   — github.com
 dict <query>   — dictionary.com
 thes <query>   — thesaurus.com
+
+// utility
+x <url>        — force redirect if the box fails to treat a pasted url correctly
 ```
