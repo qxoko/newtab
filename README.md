@@ -11,6 +11,8 @@ these things repeated over and over every time you open a new tab make you prett
 
 this new tab is entirely contained in one file (minus an optional font file) and has no external configuration.  this has the added benefit of making it *gotdang fast*.
 
+the red number in the top right corner is a [weird date](https://github.com/qxoko/WeirdDate).
+
 ## usage
 
 it's pretty darn simple.  point your browser's new tab/homepage to `index.html`.  optionally, you can point the `@font-face` url to a specific font file.

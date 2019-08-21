@@ -81,12 +81,10 @@
 		let last_command	= null;
 
 		function get_weird_date() {
-			var now    = new Date();
-			var start  = new Date(now.getFullYear(), 0, 0);
-			var diff   = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
-			var oneDay = 1000 * 60 * 60 * 24;
-			var day    = Math.floor(diff / oneDay);
-			return ("000" + now.getDate()).slice(-3) + '|' + day;
+			var now   = new Date();
+			var start = new Date(now.getFullYear(), 0, 0);
+			var day   = Math.floor(((now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000)) / (1000 * 60 * 60 * 24));
+			return (now.getFullYear() - 2000) * 1000 + day;
 		}
 
 		function focus_input() {
