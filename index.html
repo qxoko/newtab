@@ -155,7 +155,7 @@
 
 		function evaluate_input() {
 			let input_box = document.querySelector('#input');
-			let buffer    = input_box.value.trim();
+			let buffer    = input_box.value.trim().toLowerCase();
 
 			if (buffer === '') { return; }
 
