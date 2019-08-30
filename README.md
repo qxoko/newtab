@@ -25,9 +25,10 @@ for instance, `a product name` will search `amazon` for `product name`.  simply 
 
 ```
 // main
-g   <query>    — google
-img <query>    — google images
+g    <query>   — google
+img  <query>   — google images
 m              — mail.protonmail.com
+todo <tag>     — workflowy + jump to tag
 
 // chat
 d              — discord web
@@ -39,7 +40,7 @@ r  <subreddit> — reddit
 t  <blog name> — tumblr
 
 // entertainment
-y  <query>     — youtube.com: query "s" will go to subscriptions
+y  <query>     — youtube.com + "s" for sub box
 n  <query>     — netflix
 
 // other

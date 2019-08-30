@@ -192,7 +192,8 @@
 			'dict': 'dictionary',
 			'thes': 'thesaurus',
 			'm':    'protonmail',
-			's':    'slack'
+			's':    'slack',
+			'todo': 'workflowy',
 		}
 
 		const command_list = {
@@ -271,6 +272,13 @@
 					redirect('https://slack.com/');
 				}
 			},
+			'todo': (query) => {
+				if (query) {
+					go_to_site('https://workflowy.com', '#?q=%23', query);
+				} else {
+					redirect('https://workflowy.com')
+				}
+			}
 		}
 	</script>
 </body>
