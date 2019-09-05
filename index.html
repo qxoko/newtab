@@ -273,11 +273,7 @@
 				}
 			},
 			'todo': (query) => {
-				if (query) {
-					go_to_site('https://workflowy.com', '#?q=%23', query);
-				} else {
-					redirect('https://workflowy.com')
-				}
+				go_to_site('https://workflowy.com', '#?q=%23', query);
 			}
 		}
 	</script>
