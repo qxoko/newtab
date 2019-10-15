@@ -194,6 +194,7 @@
 			'm':    'protonmail',
 			's':    'slack',
 			'todo': 'workflowy',
+			'translate': 'google translate'
 		}
 
 		const command_list = {
@@ -274,6 +275,9 @@
 			},
 			'todo': (query) => {
 				go_to_site('https://workflowy.com', '#?q=%23', query);
+			},
+			'translate': () => {
+				redirect('https://translate.google.com');
 			}
 		}
 	</script>
