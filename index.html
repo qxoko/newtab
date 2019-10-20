@@ -276,8 +276,8 @@
 			'translate': () => {
 				redirect('https://translate.google.com');
 			},
-			'dots': () => {
-				redirect('https://github.com/qxoko/dots');
+			'dots': (directory) => {
+				go_to_site('https://github.com/qxoko/dots', '/tree/master/', directory);
 			}
 		}
 	</script>
