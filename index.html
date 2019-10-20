@@ -193,8 +193,8 @@
 			'thes': 'thesaurus',
 			'm':    'protonmail',
 			's':    'slack',
-			'todo': 'workflowy',
-			'translate': 'google translate'
+			'dots': 'dotfiles',
+			'tr':   'google translate'
 		}
 
 		const command_list = {
@@ -273,11 +273,11 @@
 					redirect('https://slack.com/');
 				}
 			},
-			'todo': (query) => {
-				go_to_site('https://workflowy.com', '#?q=%23', query);
-			},
 			'translate': () => {
 				redirect('https://translate.google.com');
+			},
+			'dots': () => {
+				redirect('https://github.com/qxoko/dots');
 			}
 		}
 	</script>
