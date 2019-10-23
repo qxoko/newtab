@@ -28,7 +28,6 @@ for instance, `a product name` will search `amazon` for `product name`.  simply 
 g    <query>   — google
 img  <query>   — google images
 m              — mail.protonmail.com
-todo <tag>     — workflowy + jump to tag
 
 // chat
 d              — discord web
@@ -49,6 +48,8 @@ w    <query>   — wikipedia
 git  <query>   — github.com
 dict <query>   — dictionary.com
 thes <query>   — thesaurus.com
+dots <path>    — dotfiles
+tr             — google translate
 
 // utility
 x <url>        — force redirect if the box fails to treat a pasted url correctly
