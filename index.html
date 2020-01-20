@@ -77,7 +77,7 @@
 	<div id="message"></div>
 	<script type="text/javascript">
 		// default command if no command is specified
-		let default_command = 'g';
+		let default_command = 'dg';
 		let last_command	= null;
 
 		function get_weird_date() {
@@ -180,6 +180,7 @@
 			'x':    'redirect',
 			'g':    'google',
 			'img':  'google images',
+			'dg':   'duckduckgo',
 			'y':    'youtube',
 			'n':    'netflix',
 			'r':    'reddit',
@@ -209,6 +210,10 @@
 			// google images
 			'img': (query) => {
 				go_to_site('https://google.com', '/search?tbm=isch&q=', query);
+			},
+			// duckduckgo
+			'dg': (query) => {
+				go_to_site('https://duckduckgo.com', '/?q=', query);
 			},
 			// youtube
 			'y': (query) => {
