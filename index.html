@@ -180,6 +180,7 @@
 			'x':    'redirect',
 			'g':    'google',
 			'img':  'google images',
+			'maps': 'google maps',
 			'dg':   'duckduckgo',
 			'y':    'youtube',
 			'n':    'netflix',
@@ -210,6 +211,10 @@
 			// google images
 			'img': (query) => {
 				go_to_site('https://google.com', '/search?tbm=isch&q=', query);
+			},
+			// google images
+			'maps': (query) => {
+				redirect('https://maps.google.com');
 			},
 			// duckduckgo
 			'dg': (query) => {
